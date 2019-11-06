@@ -1,5 +1,5 @@
 # Fractions 
-[![npm version](https://badge.fury.io/js/fractionize.svg)](https://badge.fury.io/js/angular2-fractionize)
+[![npm version](https://badge.fury.io/js/fractionize.svg)](https://badge.fury.io/js/fractionalize)
 
 Function that formats numbers to an approximate fraction
 

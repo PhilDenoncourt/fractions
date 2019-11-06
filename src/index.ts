@@ -57,12 +57,13 @@ export function Fractionalize(text:any, fractionalizeOptions:FractionalizeOption
         return text;
     }
 
-    var decimalPortion = v%1;
-    var integerPortion = Math.floor(v);
+    var isNegative = !!(v < 0);
+    var decimalPortion = Math.abs(v%1);
+    var integerPortion = Math.floor(Math.abs(v));
     for (var i=0;i<fractionalizeOptions.maxDenominator;i++) {
         for (var j=0;j<denominatorMap[i].length;j++) {
             if (decimalPortion === denominatorMap[i][j]) {
-                return formatResult(integerPortion, j+1,i+1, fractionalizeOptions);
+                return formatResult(integerPortion, j+1,i+1, fractionalizeOptions, isNegative);
             }
         }
     }
@@ -72,7 +73,8 @@ export function Fractionalize(text:any, fractionalizeOptions:FractionalizeOption
             for (var j = 0; j < denominatorMap[i].length; j++) {
                 if (decimalPortion + fractionalizeOptions.tolerance > denominatorMap[i][j] &&
                     decimalPortion - fractionalizeOptions.tolerance < denominatorMap[i][j]) {
-                    return formatResult(integerPortion, j + 1, i + 1, fractionalizeOptions, true);
+
+                    return formatResult(integerPortion, j + 1, i + 1, fractionalizeOptions, isNegative, true);
                 }
             }
         }
@@ -92,13 +94,14 @@ function createDenominatorMap(maxDenominator:number) {
     }
 }
 
-function formatResult(integerPortion:number, numerator:number, denominator:number, fractionalizeOptions:FractionalizeOptions, isApproximate?: boolean):string {
+function formatResult(integerPortion:number, numerator:number, denominator:number, fractionalizeOptions:FractionalizeOptions, isNegative: boolean, isApproximate?: boolean):string {
 
     if (unicodeMap[denominator] &&
         unicodeMap[denominator][numerator]) {
 
         return [
             isApproximate && fractionalizeOptions.showApproximationSymbol ? '\u2248' : '',
+            isNegative ? '-' : '',
             integerPortion ? integerPortion:'',
             integerPortion && fractionalizeOptions.spaceBetweenIntegerAndFraction ? ' ':'',
             unicodeMap[denominator][numerator]
@@ -106,6 +109,8 @@ function formatResult(integerPortion:number, numerator:number, denominator:numbe
     }
 
     return [
+        isApproximate && fractionalizeOptions.showApproximationSymbol ? '\u2248' : '',
+        isNegative ? '-' : '',
         integerPortion ? integerPortion:'',
         integerPortion && fractionalizeOptions.spaceBetweenIntegerAndFraction ? ' ':'',
         numerator,

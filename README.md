@@ -27,6 +27,7 @@ class FractionalizeOptions {
     spaceBetweenIntegerAndFraction=true;
     tolerance=.01;
     exactMatch = false;
+    showApproximationSymbol = false;
 }
 ```
 
@@ -36,3 +37,4 @@ Supply a structure to the fractionalize function to fine tune the process.
 * spaceBetweenIntegerAndFraction - Determines whether or not to place a space between the fraction and the integer portion of the number.  Defaults to true
 * tolerance - if exactMatch is false, how close does the real number need to be to the fractional number to be used.  Default is 1/100 (.01)
 * exactMatch - if true, the number will only be shown as a fraction if it exactly matches. 
+* showApproximationSymbol - if true, and the fractional representation, show the ≈ symbol.

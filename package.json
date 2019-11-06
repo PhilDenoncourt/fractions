@@ -2,17 +2,20 @@
   "name": "fractionalize",
   "version": "1.0.1",
   "description": "Converts numbers to fraction string",
-  "main": "index.js",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "scripts": {
     "test": "jest --coverage --config jestconfig.json",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm test",
     "build": "tsc"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/PhilDenoncourt/fractions.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["fraction","convert to fraction"],
+  "author": "Phil Denoncourt III",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/PhilDenoncourt/fractions/issues"

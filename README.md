@@ -5,7 +5,7 @@ Function that formats numbers to an approximate fraction
 
 ### Install
 ```
-npm install fractionize
+npm install fractionalize
 ```
 
 ### Usage

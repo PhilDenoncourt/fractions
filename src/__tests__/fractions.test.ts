@@ -24,6 +24,9 @@ test('There isnt a unicode equivalent', ()=> {
     expect(Fractionalize(.03)).toBe("1/26");
 });
 
+test('There isnt a unicode equivalent with numbers > 1', ()=> {
+    expect(Fractionalize(1.09)).toBe("1 1/10");
+});
 
 test('Whole numbers are cool', ()=> {
     expect(Fractionalize(1)).toBe("1");
@@ -49,4 +52,8 @@ test('Undefined doesnt break things', ()=> {
 
 test('Nan doesnt break things', ()=> {
     expect(Fractionalize(NaN)).toBe(NaN);
+});
+
+test('Works with strings', ()=> {
+    expect(Fractionalize("1")).toBe("1");
 });

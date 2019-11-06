@@ -36,6 +36,7 @@ export class FractionalizeOptions {
     spaceBetweenIntegerAndFraction=true;
     tolerance=.01;
     exactMatch = false;
+    showApproximationSymbol = false;
 }
 
 export function Fractionalize(text:any, fractionalizeOptions:FractionalizeOptions = new FractionalizeOptions()): string {
@@ -71,7 +72,7 @@ export function Fractionalize(text:any, fractionalizeOptions:FractionalizeOption
             for (var j = 0; j < denominatorMap[i].length; j++) {
                 if (decimalPortion + fractionalizeOptions.tolerance > denominatorMap[i][j] &&
                     decimalPortion - fractionalizeOptions.tolerance < denominatorMap[i][j]) {
-                    return formatResult(integerPortion, j + 1, i + 1, fractionalizeOptions);
+                    return formatResult(integerPortion, j + 1, i + 1, fractionalizeOptions, true);
                 }
             }
         }
@@ -91,12 +92,13 @@ function createDenominatorMap(maxDenominator:number) {
     }
 }
 
-function formatResult(integerPortion:number, numerator:number, denominator:number, fractionalizeOptions:FractionalizeOptions):string {
+function formatResult(integerPortion:number, numerator:number, denominator:number, fractionalizeOptions:FractionalizeOptions, isApproximate?: boolean):string {
 
     if (unicodeMap[denominator] &&
         unicodeMap[denominator][numerator]) {
 
         return [
+            isApproximate && fractionalizeOptions.showApproximationSymbol ? '\u2248' : '',
             integerPortion ? integerPortion:'',
             integerPortion && fractionalizeOptions.spaceBetweenIntegerAndFraction ? ' ':'',
             unicodeMap[denominator][numerator]

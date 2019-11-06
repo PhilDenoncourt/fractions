@@ -8,6 +8,12 @@ test('Close enough', () => {
     expect(Fractionalize(.5001)).toBe("\u00BD");
 });
 
+test('Close enough with approximation', () => {
+    const opts = new FractionalizeOptions();
+    opts.showApproximationSymbol = true;
+    expect(Fractionalize(.5001, opts)).toBe("\u2248\u00BD");
+});
+
 test('No exact match', ()=> {
     const opts = new FractionalizeOptions();
     opts.exactMatch = true;
